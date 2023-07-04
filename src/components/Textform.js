@@ -24,6 +24,7 @@ export default function Textform(props) {
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();//for unselecting text
         props.showAlert("Copied to clipboard", "success");
     }
     const handleclearClick = () =>{
@@ -50,25 +51,28 @@ export default function Textform(props) {
   return (
     <>
     <div className='container'>
-        <h1 style={{color:props.mode === 'light'? 'black':'white'}} >{props.heading}</h1>
+        <h2 className='mb-4' style={{color:props.mode === 'light'? 'black':'white'}} >{props.heading}</h2>
         <div className="mb-3">
         <textarea className="form-control" id="myBox" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode === 'light'? 'white':'#3d4043', color:props.mode === 'light'? 'black':'white'}} rows="8"></textarea>
         </div>
-        <button type="button" className="btn btn-success mx-3"onClick={handleUpClick}>Convert to UPPERCASE</button>
-        <button type="button" className="btn btn-success mx-3" onClick={handlelowClick}>Convert to LOWERCASE</button>
-        <button type="button" className="btn btn-success mx-3" onClick={handlecopyClick}>Copy Text</button>
-        <button type="button" className="btn btn-success mx-3" onClick={handleexspaceClick}>Remove Extra Spaces</button>
-        <button type="button" className="btn btn-success mx-3" onClick={handleclearClick}>Clear Text</button>   
+        <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2"onClick={handleUpClick}>Convert to UPPERCASE</button>
+        <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2" onClick={handlelowClick}>Convert to LOWERCASE</button>
+        <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2" onClick={handlecopyClick}>Copy Text</button>
+        <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2" onClick={handleexspaceClick}>Remove Extra Spaces</button>
+        <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2" onClick={handleclearClick}>Clear Text</button>   
         {prevText && (
-          <button type="button" className="btn btn-primary mx-3" onClick={handleUndoClick}>Undo</button>
+          <button disabled={text.length===0} type="button" className="btn btn-primary mx-2 my-2" onClick={handleUndoClick}>Undo</button>
         )}
     </div>
     <div className="container my-3"> 
     <h2 style={{color:props.mode === 'light'? 'black':'white'}}>Your Text Summary</h2>
+    {/*<p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and ${text.length} characters</p> */}
     <p id='1' style={{color:props.mode === 'light'? 'black':'white'}}>Your Word Count</p>
     <p style={{color:props.mode === 'light'? 'black':'white'}}>
-        {0.008* text.split(" ").length} Minutes to read
+        {0.008* text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes to read
     </p>
+    <h2>Preview</h2>
+            <p>{text.length>0?text:"Nothing to preview!"}</p>
     </div>
     </>
   )
