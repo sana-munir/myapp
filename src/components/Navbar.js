@@ -25,7 +25,7 @@ export default function Navbar(props) {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+          <Link className="nav-link" aria-current="page" to="/">Home</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/About">{props.aboutText}</Link>
@@ -45,8 +45,14 @@ export default function Navbar(props) {
           <a className="nav-link disabled">Disabled</a>
         </li>
       </ul>
+      <div className="bg-primary rounded mx-2" onClick={()=>{props.toggleMode('primary')}} style={{height: '22px', width:'22px', cursor:'pointer'}}></div>
+      <div className="bg-danger rounded mx-2" onClick={()=>{props.toggleMode('danger')}} style={{height: '22px', width:'22px', cursor:'pointer'}}></div>
+      <div className="bg-warning rounded mx-2" onClick={()=>{props.toggleMode('warning')}} style={{height: '22px', width:'22px', cursor:'pointer'}}></div>
+      <div className="bg-success rounded mx-2" onClick={()=>{props.toggleMode('success')}} style={{height: '22px', width:'22px', cursor:'pointer'}}></div>
+      <div className="bg-info rounded mx-2" onClick={()=>{props.toggleMode('info')}} style={{height: '22px', width:'22px', cursor:'pointer'}}></div>
+
       <div className={`form-check form-switch text-${props.mode === 'light'? 'dark':'light'}`}>{/*for setting the text color*/}
-        <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+        <input className="form-check-input" onClick={props.togglemode1} type="checkbox" role="switch" id="flexSwitchCheckDefault" />
         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{btnText}</label>
       </div>
       {/*<form className="d-flex" role="search">

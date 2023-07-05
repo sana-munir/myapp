@@ -21,9 +21,9 @@ export default function Textform(props) {
     }
     const handlecopyClick = () =>{
         setPrevText(text);
-        var text = document.getElementById("myBox");
-        text.select();
-        navigator.clipboard.writeText(text.value);
+        //var text = document.getElementById("myBox");
+        //text.select();
+        navigator.clipboard.writeText(text);
         document.getSelection().removeAllRanges();//for unselecting text
         props.showAlert("Copied to clipboard", "success");
     }
@@ -45,7 +45,7 @@ export default function Textform(props) {
             txt.innerText = "0 words and 0 characters"
         }
         else{
-            txt.innerText = `${text.split(" ").length} words and ${text.length} characters`;
+            txt.innerText = `${text.split(/\s+/).length} words and ${text.length} characters`;
         }
     }
   return (
@@ -53,7 +53,7 @@ export default function Textform(props) {
     <div className='container'>
         <h2 className='mb-4' style={{color:props.mode === 'light'? 'black':'white'}} >{props.heading}</h2>
         <div className="mb-3">
-        <textarea className="form-control" id="myBox" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode === 'light'? 'white':'#3d4043', color:props.mode === 'light'? 'black':'white'}} rows="8"></textarea>
+        <textarea className="form-control" id="myBox" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode === 'light'? 'white':'lightgrey', color:props.mode === 'light'? 'black':'white'}} rows="8"></textarea>
         </div>
         <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2"onClick={handleUpClick}>Convert to UPPERCASE</button>
         <button disabled={text.length===0} type="button" className="btn btn-success mx-2 my-2" onClick={handlelowClick}>Convert to LOWERCASE</button>
@@ -71,8 +71,8 @@ export default function Textform(props) {
     <p style={{color:props.mode === 'light'? 'black':'white'}}>
         {0.008* text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes to read
     </p>
-    <h2>Preview</h2>
-            <p>{text.length>0?text:"Nothing to preview!"}</p>
+    <h2 style={{color:props.mode === 'light'? 'black':'white'}}>Preview</h2>
+            <p style={{color:props.mode === 'light'? 'black':'white'}}>{text.length>0?text:"Nothing to preview!"}</p>
     </div>
     </>
   )
